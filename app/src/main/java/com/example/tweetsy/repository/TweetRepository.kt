@@ -8,27 +8,27 @@ import javax.inject.Inject
 
 class TweetRepository @Inject constructor(private val tweetsyInterfaceApi: TweetsyInterfaceApi) {
 
-    private val _catagories = MutableStateFlow<List<String>>(emptyList())
-    val catagory: StateFlow<List<String>>
-        get() = _catagories
+    private val _category = MutableStateFlow<List<String>>(emptyList())
+    val category: StateFlow<List<String>>
+        get() = _category
 
     private val _tweets = MutableStateFlow<List<TweetListItem>>(emptyList())
     val tweets: StateFlow<List<TweetListItem>>
         get() = _tweets
 
 
-    suspend fun getCatagories() {
+    suspend fun getCategories() {
 
         val response = tweetsyInterfaceApi.getCategories()
         if (response.isSuccessful && response.body() != null) {
-            _catagories.emit(response.body()!!)
+            _category.emit(response.body()!!.distinct())
         }
 
     }
 
-    suspend fun getTweets(catagory: String) {
+    suspend fun getTweets(category: String) {
 
-        val response = tweetsyInterfaceApi.getTweets(catagory)
+        val response = tweetsyInterfaceApi.getTweets("tweets[?(@.category==\"$category\")]")
         if (response.isSuccessful && response.body() != null) {
             _tweets.emit(response.body()!!)
         }

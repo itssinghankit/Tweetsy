@@ -12,6 +12,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.tweetsy.api.TweetsyInterfaceApi
+import com.example.tweetsy.screens.CategoryScreen
+import com.example.tweetsy.screens.TweetScreen
 import com.example.tweetsy.ui.theme.TweetsyTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.GlobalScope
@@ -21,42 +23,21 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    @Inject
-    lateinit var tweetsyInstanceAPI : TweetsyInterfaceApi
+//    @Inject
+//    lateinit var tweetsyInstanceAPI : TweetsyInterfaceApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        GlobalScope.launch {
-           val response=tweetsyInstanceAPI.getCategories()
-            Log.d("Ankit",response.body()!!.distinct().toString())
-        }
+//        GlobalScope.launch {
+//           val response=tweetsyInstanceAPI.getCategories()
+//            Log.d("Ankit",response.body()!!.distinct().toString())
+//        }
 
         setContent {
             TweetsyTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting("Android")
-                }
+                TweetScreen()
+//               CategoryScreen()
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    TweetsyTheme {
-        Greeting("Android")
     }
 }
