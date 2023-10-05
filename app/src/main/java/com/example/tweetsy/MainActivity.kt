@@ -13,10 +13,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.tweetsy.api.TweetsyInterfaceApi
 import com.example.tweetsy.ui.theme.TweetsyTheme
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     @Inject
@@ -25,8 +27,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         GlobalScope.launch {
-           val response=tweetsyInstanceAPI.getCatagories()
-            Log.d("Ankit",response.body().toString())
+           val response=tweetsyInstanceAPI.getCategories()
+            Log.d("Ankit",response.body()!!.distinct().toString())
         }
 
         setContent {

@@ -9,10 +9,10 @@ import retrofit2.http.Headers
 interface TweetsyInterfaceApi {
 
     @GET("/v3/b/651af3b654105e766fbcbd81?meta=false")
-    suspend fun getTweets(@Header("X-JSON-Path")category:String):Response<List<TweetListItem>>
+    suspend fun getTweets(@Header("X-JSON-Path") category:String):Response<List<TweetListItem>>
 
     @GET("/v3/b/651af3b654105e766fbcbd81?meta=false")
-    @Headers("X-JSON-Path : tweets..catagory")
-    suspend fun getCatagories():Response<List<String>>
+    @Headers("X-JSON-Path:tweets..category")
+    suspend fun getCategories():Response<List<String>>
 
 }
