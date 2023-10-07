@@ -1,6 +1,7 @@
 package com.example.tweetsy.screens
 
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -25,15 +26,15 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.tweetsy.R
 import com.example.tweetsy.viewmodels.CategoryViewModel
 
-@Preview
 @Composable
-fun CategoryScreen() {
+fun CategoryScreen(onclick:(category:String)->Unit) {
 
-    val categoryViewModel: CategoryViewModel = viewModel()
+    val categoryViewModel: CategoryViewModel = hiltViewModel()
     val categories: State<List<String>> = categoryViewModel.category.collectAsState()
 
     LazyVerticalGrid(
@@ -42,17 +43,18 @@ fun CategoryScreen() {
         verticalArrangement = Arrangement.SpaceAround
     ) {
         items(categories.value) {
-            CatagoryItem(category = it)
+            CatagoryItem(category = it,onclick)
         }
     }
 }
 
 @Composable
-fun CatagoryItem(category: String) {
+fun CatagoryItem(category: String,onclick:(category:String)->Unit) {
     Box(
         modifier = Modifier
             .padding(4.dp)
             .size(160.dp)
+            .clickable { onclick(category) }
             .clip(RoundedCornerShape(8.dp))
             .paint(painter = painterResource(id = R.drawable.bg), contentScale = ContentScale.Crop)
             .border(

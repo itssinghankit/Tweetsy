@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.tweetsy.viewmodels.TweetsViewModels
 
@@ -23,7 +24,7 @@ import com.example.tweetsy.viewmodels.TweetsViewModels
 @Composable
 fun TweetScreen() {
 
-    val tweetViewModel:TweetsViewModels= viewModel()
+    val tweetViewModel:TweetsViewModels= hiltViewModel()
     val tweets=tweetViewModel.tweets.collectAsState()
 
     LazyColumn(){
